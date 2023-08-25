@@ -152,3 +152,6 @@ dist
 go.work
 
 .idea/
+
+frontend/public/main.wasm
+frontend/wasm_exec.js
