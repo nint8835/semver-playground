@@ -12,6 +12,7 @@
     "fetch-wasm-exec": "cp $(go env GOROOT)/misc/wasm/wasm_exec.js ./wasm_exec.js"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.33.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
