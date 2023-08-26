@@ -1,3 +1,4 @@
+import { Transition } from '@headlessui/react';
 import type { UseQueryOptions } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,7 +15,25 @@ const loadWasmQuery: UseQueryOptions = { queryKey: ['loadWasm'], queryFn: loadWa
 function App() {
     const wasmLoading = useQuery(loadWasmQuery);
 
-    return wasmLoading.isLoading ? <div>Loading...</div> : <pre>WASM loaded</pre>;
+    return (
+        <>
+            <Transition
+                show={wasmLoading.isLoading}
+                leave="transition-opacity duration-300"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+                className="absolute left-0 top-0 flex h-screen w-screen flex-col items-center justify-center bg-zinc-900"
+            >
+                <div className="h-16 w-16 animate-spin rounded-full border-t-2  border-t-blue-600" />
+            </Transition>
+
+            {wasmLoading.isFetched && (
+                <div className="flex h-screen w-screen flex-col items-center justify-center italic">
+                    Insert app here
+                </div>
+            )}
+        </>
+    );
 }
 
 export default App;
