@@ -8,12 +8,19 @@ async function loadWasm(): Promise<void> {
 
 function App() {
     const [wasmLoading, setWasmLoading] = useState(true);
+    const [parsedVersion, setParsedVersion] = useState(null);
 
     useEffect(() => {
         loadWasm().then(() => setWasmLoading(false));
-    });
+    }, [setWasmLoading]);
 
-    return wasmLoading ? <div>Loading...</div> : <div>WASM loaded!</div>;
+    useEffect(() => {
+        if (!wasmLoading) {
+            parseVersion('1.2.3').then(setParsedVersion);
+        }
+    }, [wasmLoading, setParsedVersion]);
+
+    return wasmLoading ? <div>Loading...</div> : <pre>{JSON.stringify(parsedVersion, null, 4)}</pre>;
 }
 
 export default App;
