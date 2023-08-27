@@ -1,18 +1,8 @@
-import { useQuery, type QueryOptions } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getParseVersionQuery } from '../../queries/queries';
 
-function getParseVersionQuery(versionString: string): QueryOptions<Version, Error> {
-    return {
-        queryKey: ['parseVersion', versionString],
-        queryFn: async (): Promise<Version> => {
-            return parseVersion(versionString);
-        },
-        retry: false,
-    };
-}
-
-function VersionEditor() {
-    const [versionString, setVersionString] = useState('');
+function VersionEditor(props: { versionString: string; setVersionString: (val: string) => void }) {
+    const { versionString, setVersionString } = props;
     const versionQuery = useQuery(getParseVersionQuery(versionString));
 
     return (

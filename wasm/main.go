@@ -17,13 +17,16 @@ func versionToMap(version *semver.Version) map[string]any {
 	}
 }
 
-func versionFromMap(version map[string]any) *semver.Version {
+func versionFromJsVal(version js.Value) *semver.Version {
+	if version.IsUndefined() {
+		return nil
+	}
 	return semver.New(
-		version["major"].(uint64),
-		version["minor"].(uint64),
-		version["patch"].(uint64),
-		version["prerelease"].(string),
-		version["metadata"].(string),
+		uint64(version.Get("major").Int()),
+		uint64(version.Get("minor").Int()),
+		uint64(version.Get("patch").Int()),
+		version.Get("prerelease").String(),
+		version.Get("metadata").String(),
 	)
 }
 
@@ -69,9 +72,31 @@ func parseConstraintFunc(this js.Value, args []js.Value) (any, error) {
 	return constraint.String(), nil
 }
 
+func matchVersion(this js.Value, args []js.Value) (any, error) {
+	version := versionFromJsVal(args[0])
+	if version == nil {
+		return nil, nil
+	}
+
+	constraint, err := semver.NewConstraint(args[1].String())
+	if err != nil {
+		return nil, err
+	}
+
+	_, errors := constraint.Validate(version)
+
+	errorStrings := make([]any, len(errors))
+	for i, err := range errors {
+		errorStrings[i] = err.Error()
+	}
+
+	return errorStrings, nil
+}
+
 func main() {
 	ch := make(chan struct{}, 0)
 	js.Global().Set("parseVersion", promisify(parseVersionFunc))
 	js.Global().Set("parseConstraint", promisify(parseConstraintFunc))
+	js.Global().Set("matchVersion", promisify(matchVersion))
 	<-ch
 }

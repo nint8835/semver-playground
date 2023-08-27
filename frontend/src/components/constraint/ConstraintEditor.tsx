@@ -1,18 +1,8 @@
-import { useQuery, type QueryOptions } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getParseConstraintQuery } from '../../queries/queries';
 
-function getParseConstraintQuery(constraintString: string): QueryOptions<string, Error> {
-    return {
-        queryKey: ['parseConstraint', constraintString],
-        queryFn: async (): Promise<string> => {
-            return parseConstraint(constraintString);
-        },
-        retry: false,
-    };
-}
-
-function ConstraintEditor() {
-    const [constraintString, setConstraintString] = useState('');
+function ConstraintEditor(props: { constraintString: string; setConstraintString: (val: string) => void }) {
+    const { constraintString, setConstraintString } = props;
     const constraintQuery = useQuery(getParseConstraintQuery(constraintString));
 
     return (
