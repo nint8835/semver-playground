@@ -1,6 +1,7 @@
 import { Transition } from '@headlessui/react';
 import type { UseQueryOptions } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
+import MainRoute from './routes/MainRoute';
 
 async function loadWasm(): Promise<null> {
     const goWasm = new Go();
@@ -27,11 +28,7 @@ function App() {
                 <div className="h-16 w-16 animate-spin rounded-full border-t-2  border-t-blue-600" />
             </Transition>
 
-            {wasmLoading.isFetched && (
-                <div className="flex h-screen w-screen flex-col items-center justify-center italic">
-                    Insert app here
-                </div>
-            )}
+            {wasmLoading.isFetched && <MainRoute />}
         </>
     );
 }
