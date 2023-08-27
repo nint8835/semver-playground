@@ -11,3 +11,4 @@ declare type Version = {
 };
 
 declare function parseVersion(version: string): Promise<Version>;
+declare function parseConstraint(constraint: string): Promise<string>;

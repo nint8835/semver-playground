@@ -60,8 +60,18 @@ func parseVersionFunc(this js.Value, args []js.Value) (any, error) {
 	return versionToMap(version), nil
 }
 
+func parseConstraintFunc(this js.Value, args []js.Value) (any, error) {
+	constraint, err := semver.NewConstraint(args[0].String())
+	if err != nil {
+		return nil, err
+	}
+
+	return constraint.String(), nil
+}
+
 func main() {
 	ch := make(chan struct{}, 0)
 	js.Global().Set("parseVersion", promisify(parseVersionFunc))
+	js.Global().Set("parseConstraint", promisify(parseConstraintFunc))
 	<-ch
 }
