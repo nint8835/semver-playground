@@ -8,7 +8,7 @@ function ConstraintEditor(props: { constraintString: string; setConstraintString
     const constraintQuery = useQuery(getParseConstraintQuery(constraintString));
 
     return (
-        <Editor setEditorValue={setConstraintString} editorValue={constraintString}>
+        <Editor setEditorValue={setConstraintString} editorValue={constraintString} title="Version constraint">
             <pre
                 className={`mt-2 w-full whitespace-break-spaces rounded-md p-1 ${
                     { error: 'bg-red-900', loading: 'hidden', success: 'bg-blue-900' }[constraintQuery.status]
