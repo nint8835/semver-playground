@@ -1,4 +1,5 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import Notice from './Notice';
 
 function ResultVisualizer({ constraint, reasons }: { constraint: string; reasons: string[] }) {
     const constraintElements = constraint.split('||').map((constraintElement) => constraintElement.trim());
@@ -15,10 +16,10 @@ function ResultVisualizer({ constraint, reasons }: { constraint: string; reasons
                         <p>Version matches constraint</p>
                     </div>
                     {constraintElements.length > 1 && (
-                        <p className="italic text-zinc-400">
-                            NOTE: Per-element failure information is unavailable if any element of your constraint
-                            matches the version.
-                        </p>
+                        <Notice>
+                            Per-element failure information is unavailable if any element of your constraint matches the
+                            version.
+                        </Notice>
                     )}
                 </>
             ) : (
@@ -57,10 +58,10 @@ function ResultVisualizer({ constraint, reasons }: { constraint: string; reasons
                                 </li>
                             ))}
                         </ul>
-                        <p className="italic text-zinc-400">
+                        <Notice>
                             semver returned incomplete failure information. The failure reason(s) cannot be associated
                             with the particular constraint elements that caused it.
-                        </p>
+                        </Notice>
                     </div>
                 )
             )}

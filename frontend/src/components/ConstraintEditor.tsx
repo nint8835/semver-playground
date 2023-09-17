@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDeferredValue } from 'react';
 import { getParseConstraintQuery } from '../queries/queries';
 import Editor from './Editor';
+import Notice from './Notice';
 
 function ConstraintEditor(props: { constraintString: string; setConstraintString: (val: string) => void }) {
     const { constraintString, setConstraintString } = props;
@@ -34,10 +35,10 @@ function ConstraintEditor(props: { constraintString: string; setConstraintString
                         <>
                             <h3 className="mt-2 font-bold">Normalized constraint</h3>
                             <code className="mt-2 inline-block rounded-md bg-zinc-900 p-1">{constraintQuery.data}</code>
-                            <div className="mt-2 italic text-zinc-400">
+                            <Notice>
                                 The constraint you entered produced a different value after parsing. This normalized
                                 value is what will be used when comparing versions against the constraint.
-                            </div>
+                            </Notice>
                         </>
                     )}
                 </>
