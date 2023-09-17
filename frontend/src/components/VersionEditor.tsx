@@ -18,7 +18,7 @@ function VersionEditor(props: { versionString: string; setVersionString: (val: s
                         { name: 'Prerelease', value: versionQuery.data?.prerelease },
                         { name: 'Metadata', value: versionQuery.data?.metadata },
                     ]
-                        .filter(({ value }) => value)
+                        .filter(({ value }) => value !== '')
                         .map(({ name, value }) => (
                             <>
                                 <div className="border-b-2 border-r-2 border-zinc-600 p-2 font-bold [&:nth-last-child(2)]:border-b-0">
