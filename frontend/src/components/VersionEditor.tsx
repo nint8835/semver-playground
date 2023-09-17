@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDeferredValue } from 'react';
-import { getParseVersionQuery } from '../../queries/queries';
-import Editor from '../Editor';
+import { getParseVersionQuery } from '../queries/queries';
+import Editor from './Editor';
 
 function VersionEditor(props: { versionString: string; setVersionString: (val: string) => void }) {
     const { versionString, setVersionString } = props;

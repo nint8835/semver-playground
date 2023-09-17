@@ -1,8 +1,8 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
 import { useDeferredValue } from 'react';
-import { getParseConstraintQuery } from '../../queries/queries';
-import Editor from '../Editor';
+import { getParseConstraintQuery } from '../queries/queries';
+import Editor from './Editor';
 
 function ConstraintEditor(props: { constraintString: string; setConstraintString: (val: string) => void }) {
     const { constraintString, setConstraintString } = props;

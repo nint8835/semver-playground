@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import ConstraintEditor from '../components/constraint/ConstraintEditor.tsx';
-import VersionEditor from '../components/version/VersionEditor';
-import { getMatchVersionQuery, getParseConstraintQuery, getParseVersionQuery } from '../queries/queries.ts';
+import { useDeferredValue, useState } from 'react';
+import ConstraintEditor from '../components/ConstraintEditor';
+import VersionEditor from '../components/VersionEditor';
+import { getMatchVersionQuery, getParseConstraintQuery, getParseVersionQuery } from '../queries/queries';
 
 function MainRoute() {
     const [versionString, setVersionString] = useState('');
     const [constraintString, setConstraintString] = useState('');
-    const versionQuery = useQuery(getParseVersionQuery(versionString));
-    const constraintQuery = useQuery(getParseConstraintQuery(constraintString));
+    const versionQuery = useDeferredValue(useQuery(getParseVersionQuery(versionString)));
+    const constraintQuery = useDeferredValue(useQuery(getParseConstraintQuery(constraintString)));
     const matchQuery = useQuery(getMatchVersionQuery(versionQuery.data!, constraintQuery.data!));
 
     return (
