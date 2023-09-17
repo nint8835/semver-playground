@@ -10,25 +10,25 @@ function VersionEditor(props: { versionString: string; setVersionString: (val: s
     return (
         <Editor setEditorValue={setVersionString} editorValue={versionString} title="Version">
             {versionQuery.isSuccess && (
-                <div className="mt-2 w-full rounded-xl border-2 border-zinc-600">
-                    <table className="w-full">
-                        {[
-                            { name: 'Major', value: versionQuery.data?.major },
-                            { name: 'Minor', value: versionQuery.data?.minor },
-                            { name: 'Patch', value: versionQuery.data?.patch },
-                            { name: 'Prerelease', value: versionQuery.data?.prerelease },
-                            { name: 'Metadata', value: versionQuery.data?.metadata },
-                        ]
-                            .filter(({ value }) => value)
-                            .map(({ name, value }) => (
-                                <tr className="border-t-2 border-t-zinc-600 first:border-t-0">
-                                    <td className="border-r-2 border-zinc-600 p-2 font-bold">{name}</td>
-                                    <td className="p-2">
-                                        <code>{value}</code>
-                                    </td>
-                                </tr>
-                            ))}
-                    </table>
+                <div className="mt-2 inline-grid w-full grid-cols-[min-content_auto] rounded-xl border-2 border-zinc-600">
+                    {[
+                        { name: 'Major', value: versionQuery.data?.major },
+                        { name: 'Minor', value: versionQuery.data?.minor },
+                        { name: 'Patch', value: versionQuery.data?.patch },
+                        { name: 'Prerelease', value: versionQuery.data?.prerelease },
+                        { name: 'Metadata', value: versionQuery.data?.metadata },
+                    ]
+                        .filter(({ value }) => value)
+                        .map(({ name, value }) => (
+                            <>
+                                <div className="border-b-2 border-r-2 border-zinc-600 p-2 font-bold [&:nth-last-child(2)]:border-b-0">
+                                    {name}
+                                </div>
+                                <div className="overflow-scroll border-b-2 border-zinc-600 p-2 last:border-b-0">
+                                    <code>{value}</code>
+                                </div>
+                            </>
+                        ))}
                 </div>
             )}
 
