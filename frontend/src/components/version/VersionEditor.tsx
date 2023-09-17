@@ -10,7 +10,7 @@ function VersionEditor(props: { versionString: string; setVersionString: (val: s
     return (
         <Editor setEditorValue={setVersionString} editorValue={versionString} title="Version">
             {versionQuery.isSuccess && (
-                <div className="mt-2 inline-grid w-full grid-cols-[min-content_auto] rounded-xl border-2 border-zinc-600">
+                <div className="mt-2 inline-grid w-full grid-cols-[minmax(min-content,_25%)_auto] rounded-xl border-2 border-zinc-600">
                     {[
                         { name: 'Major', value: versionQuery.data?.major },
                         { name: 'Minor', value: versionQuery.data?.minor },
