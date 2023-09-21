@@ -6,7 +6,7 @@ function ResultVisualizer({ constraint, reasons }: { constraint: string; reasons
     const failureReasons = constraintElements.map((element, index) => [element, reasons[index] || '']);
 
     return (
-        <div className="mt-4 w-full rounded-lg bg-zinc-900 p-4">
+        <div className="mt-4 w-full rounded-lg bg-zinc-900 bg-opacity-50 p-4">
             <h3 className="text-l pb-2 font-bold">Result</h3>
 
             {reasons.length === 0 ? (
